@@ -15,6 +15,27 @@ Inflation is affected by many things, like jobs, interest rates, production, oil
 5. Train Linear Regression, Ridge and Lasso for each horizon. Tune on the validation set and score once on the test set with MAE, RMSE and R². Two simple baselines (persistence and train mean) are used for comparison.
 6. Find which features matter most (coefficients, leave-one-feature-out and a run without current inflation).
 
+## Key formulas and metrics
+
+**Inflation.** We measure inflation as the year-over-year change in the CPI, in percent. It compares the CPI of a month with the CPI of the same month one year earlier:
+
+```
+inflation(t) = 100 * (CPI(t) / CPI(t-12) - 1)
+```
+
+**Target.** For each month t, the target is the inflation n months later, where n is 1, 3, 6 or 12. So the model sees the data of month t and has to predict inflation at month t+n.
+
+**Growth features.** Some series (like industrial production, payrolls, producer prices, oil and M2) keep going up over time, so we use their year-over-year growth instead of the raw values:
+
+**Scores.** We check each model on the test set with three numbers:
+* **MAE:** the average size of the error, in percentage points of inflation.
+* **RMSE:** similar to MAE, but big mistakes are punished more.
+* **R²:** how much of the ups and downs of inflation the model explains. 1 is perfect, and 0 or below means it is no better than guessing the average.
+
+**Baselines.** To see if the models are actually useful, we compare them with two very simple forecasts:
+* **Persistence:** predict that inflation will stay the same as it is today.
+* **Train mean:** always predict the average inflation of the training period.
+
 ## Data
 
 We use these series from [FRED](https://fred.stlouisfed.org/): `T10Y2Y`, `UNRATE`, `INDPRO`, `FEDFUNDS`, `PAYEMS`, `PPIACO`, `HOUST`, `DCOILWTICO`, `M2SL`, `UMCSENT` and `CPIAUCSL` (used to calculate inflation).
