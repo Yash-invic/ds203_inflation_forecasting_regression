@@ -11,9 +11,9 @@ Inflation is affected by many things, like jobs, interest rates, production, oil
 1. Load 11 FRED series and make them monthly.
 2. Pick the common time period and build the features and targets. Inflation is the year-over-year change in CPI.
 3. Explore the data (inflation over time, distributions, correlations, lead-lag).
-4. Split the data by time into train, validation and test (no shuffling), with a 12-month gap between the parts to avoid leakage.
-5. Train Linear Regression, Ridge and Lasso for each horizon. Tune on the validation set and score once on the test set with MAE, RMSE and R². Two simple baselines (persistence and train mean) are used for comparison.
-6. Find which features matter most (coefficients, leave-one-feature-out and a run without current inflation).
+4. Split the data by time into train, validation and test (no shuffling).
+5. Train Linear Regression, Ridge and Lasso for each horizon. Tune on the validation set and score once on the test set with MAE, RMSE and R². A simple baseline (train mean) is used for comparison.
+6. Find which features matter most (coefficients and a run without current inflation).
 
 ## Key formulas and metrics
 
@@ -32,8 +32,7 @@ We check each model on the test set with three numbers:
 * **RMSE:** similar to MAE, but big mistakes are punished more.
 * **R²:** how much of the ups and downs of inflation the model explains. 1 is perfect, and 0 or below means it is no better than guessing the average.
 
-To see if the models are actually useful, we compare them with two very simple forecasts:
-* **Persistence:** predict that inflation will stay the same as it is today.
+To see if the models are actually useful, we compare them with a very simple forecast:
 * **Train mean:** always predict the average inflation of the training period.
 
 ## Data
