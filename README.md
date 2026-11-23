@@ -1,6 +1,6 @@
 # DS203 Project: Forecasting U.S. Inflation
 
-> 🎥 **Project video:** _(add video link or embed here)_
+**Project video:** [Watch our Project Video](https://drive.google.com/file/d/1UXh7lZzKOfC5YfzYNgAabjQU80blhXwl/view?usp=sharing)
 
 ## Introduction
 
